@@ -1,8 +1,0 @@
-[core]
-app_name = "Python Template"
-environment = "Development"
-author = "Ben Gabay"
-
-[logging]
-min_log_level = "DEBUG"
-log_file_path = "python_template.log"

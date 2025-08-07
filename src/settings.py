@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
@@ -39,19 +39,40 @@ def find_first_toml(search_dir: Path, patterns: list[str] | None = None) -> Path
     raise FileNotFoundError(msg)
 
 
+class RestaurantSettings(BaseModel):
+    """Restaurant settings."""
+
+    name: str
+    url: str
+    message: str
+    closed_texts: list[str] = ["סגור", "סגורים כרגע", "Closed"]
+    order_button_texts: list[str] = ["הוסף להזמנה", "הזמן", "Order"]
+    check_interval_seconds: int = 900  # 15 minutes
+
+
+class TelegramSettings(BaseModel):
+    """Telegram settings."""
+
+    bot_token: str
+    chat_id: str
+
+
 class LoggingSettings(BaseModel):
     """Logging-related settings."""
 
     min_log_level: str = "INFO"
     log_file_path: Path | None = None
 
+    model_config = ConfigDict(extra="forbid")
+
 
 class AppCoreSettings(BaseModel):
     """Core application settings."""
 
-    app_name: str = "Python Template"
-    environment: str = "Development"
-    author: str | None = None
+    app_name: str = "Restaurant Telegram Notifier"
+    environment: str = "Production"
+
+    model_config = ConfigDict(extra="forbid")
 
 
 class AppSettings(BaseSettings):
@@ -68,8 +89,10 @@ class AppSettings(BaseSettings):
     The delimiter defined in `model_config.env_nested_delimiter`
     """
 
-    core: AppCoreSettings = AppCoreSettings()
-    logging: LoggingSettings = LoggingSettings()
+    core: AppCoreSettings
+    logging: LoggingSettings
+    restaurant: RestaurantSettings
+    telegram: TelegramSettings
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -79,6 +102,7 @@ class AppSettings(BaseSettings):
         # For example: `CORE__APP_NAME`.
         env_nested_delimiter="__",
         toml_file=find_first_toml(Path(__file__).parent.parent / "config"),
+        extra="forbid",
     )
 
     @classmethod
@@ -94,4 +118,4 @@ class AppSettings(BaseSettings):
         return (init_settings, TomlConfigSettingsSource(settings_cls), env_settings)
 
 
-settings = AppSettings()
+settings = AppSettings()  # type: ignore[call-arg]

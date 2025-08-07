@@ -27,6 +27,10 @@
 		"pytest",
 		"pyupgrade",
 		"testpaths",
-		"venv"
+		"venv",
+		"WOLT",
+		"כרגע",
+		"סגור",
+		"סגורים"
 	]
 }

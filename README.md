@@ -1,37 +1,12 @@
-# Python Template
+# Is Restaurant Open Telegram Bot
 
-This project offers a robust, ready-to-use boilerplate, designed to kickstart your new Python projects with confidence. It comes packed with pre-configured best practices and essential tools, letting you dive straight into development.
+Telegram bot that notifies when a given restaurant is open.
 
----
+## Features
 
-## What's Included
-
-We've bundled the following to get you up and running quickly:
-
-- **⚡️ Speedy Package Management:** Utilizes [uv](https://docs.astral.sh/uv/) for incredibly fast dependency resolution and package installation.
-- **✅ Strict Type-Checking:** Enforces code quality with [mypy](https://www.mypy-lang.org/) for robust static type analysis, catching errors early.
-- **✨ Blazing-Fast Linting & Formatting:** Leverages [ruff](https://docs.astral.sh/ruff/) for an all-in-one, high-performance linter, code formatter, and more.
-- **🚫 Automated Quality Checks:** Integrates [pre-commit](https://pre-commit.com/) hooks for `ruff`, `mypy`, `codespell`, `absolufy-imports`, `uv lock`, and other essential checks, ensuring code consistency before commits.
-- **💻 VS Code Integration:** Includes [settings.json](.vscode/settings.json) and [launch.json](.vscode/launch.json) for streamlined development, with editor configurations and debug settings right out of the box.
-- **🤖 GitHub Actions Workflow:** Provides automated `pre-commit` checks, unit, and integration testing (on windows/linux/mac).
-- **🔗 Git Attributes:** Standardizes [.gitattributes](.gitattributes) for consistent line endings, optimized diffs, and common Git configurations tailored for Python projects.
-- **📁 Structured Source Directory:** A clear [src/](src/) directory where your application code resides, complete with an example [main.py](src/main.py) to get you started.
-- **⚙️ Flexible Settings System:** Includes a modern, sectioned configuration system powered by Pydantic, supporting TOML, .env, and environment variables, with auto-discovery and type-safe validation (see [settings.py](src/settings.py)).
-- **🌈 Enhanced Terminal Logging:** Configured with [colorlog](https://pypi.org/project/colorlog/) to provide highly readable, colored log output directly in your terminal, making debugging a breeze.
-- **📄 Standard Project Files:** Includes a [LICENSE](LICENSE) and this [README.md](README.md) for proper project documentation and licensing.
-
----
-
-## Getting Started
-
-Follow these steps to set up your new project:
-
-### Prerequisites
-
-Before you begin, ensure you have:
-
-- **Python 3.8 or higher** installed on your system.
-- **[uv](https://github.com/astral-sh/uv)**, our recommended tool for dependency management.
+- Scrapes the restaurant page for open/closed status
+- Sends a Telegram message to the bot channel
+- configurable for other restaurants
 
 ### Usage
 
@@ -53,11 +28,11 @@ Before you begin, ensure you have:
    pre-commit install
    ```
 
-4. **Start Developing:**
-   Begin building your awesome Python project within the `src/` directory.
+4. **Developing:**
 
-5. **Run the Example Script:**
-   Test your setup by running the included example:
+   Continue building your awesome bot within the `src/` directory.
+
+5. **Run the Bot**
 
    ```sh
    cd src
@@ -65,16 +40,6 @@ Before you begin, ensure you have:
    ```
 
    Alternatively, you can use the pre-configured VS Code debug settings in [launch.json](.vscode/launch.json) for a seamless debugging experience.
-
----
-
-## Customization
-
-This template is designed to be flexible. Here's how you can tailor it to your needs:
-
-- **Add Your Modules:** Create and organize your application's modules within the `src/` directory.
-- **Manage Dependencies:** Update `pyproject.toml` to add or remove project dependencies and adjust metadata.
-- **Configure Tools:** Fine-tune `mypy.ini` and `ruff.toml` to align with your specific coding style and static analysis requirements.
 
 ---
 
