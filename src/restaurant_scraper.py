@@ -1,20 +1,25 @@
+import logging
+
 import aiohttp
-from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 
-async def is_restaurant_open(
-    url: str, closed_texts: list[str], order_button_texts: list[str]
-) -> bool:
-    """Scrape the restaurant page and return True if the restaurant is open,
-    False otherwise.
-    """
-    async with aiohttp.ClientSession() as session, session.get(url) as resp:
-        html = await resp.text()
-    soup = BeautifulSoup(html, "html.parser")
-    # Heuristic: look for a button or text indicating closed/open
-    for text in closed_texts:
-        if soup.find(string=lambda s, t=text: s and t in s):
-            return False
-    # If there's an order button, it's open
-    order_btn = soup.find("button", string=lambda text: text and (text in order_button_texts))
-    return order_btn is not None
+async def is_restaurant_delivery_open(slug: str, timeout: float = 8.0) -> bool:
+    url = f"https://consumer-api.wolt.com/order-xp/web/v1/venue/slug/{slug}/dynamic/"
+    try:
+        async with (
+            aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=timeout)) as session,
+            session.get(url) as response,
+        ):
+            response.raise_for_status()
+            data = await response.json()
+
+            venue = data.get("venue", {})
+            delivery_open: bool = venue.get("delivery_open_status", {}).get("is_open")
+            online: bool = venue.get("online")
+
+            return delivery_open and online
+    except Exception:
+        logger.exception("Failed to get delivery status")
+        return False

@@ -42,11 +42,8 @@ def find_first_toml(search_dir: Path, patterns: list[str] | None = None) -> Path
 class RestaurantSettings(BaseModel):
     """Restaurant settings."""
 
-    name: str
-    url: str
+    slug: str
     message: str
-    closed_texts: list[str] = ["סגור", "סגורים כרגע", "Closed"]
-    order_button_texts: list[str] = ["הוסף להזמנה", "הזמן", "Order"]
     check_interval_seconds: int = 900  # 15 minutes
 
 
