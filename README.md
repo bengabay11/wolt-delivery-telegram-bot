@@ -54,8 +54,12 @@ You can also run the bot using Docker:
 2. **Run the Container:**
 
    ```sh
-   docker run -it wolt-restaurant-notifier
+   docker run -it \
+     -v $(pwd)/config:/app/config \
+     wolt-restaurant-notifier
    ```
+
+   - `-v $(pwd)/config:/app/config`: Mounts your local config directory, allowing you to modify the configuration without rebuilding the image
 
 3. **Environment Variables:**
    You can also pass environment variables to override config settings:
