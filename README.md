@@ -41,6 +41,32 @@ Telegram bot that notifies when a given restaurant is open.
 
    Alternatively, you can use the pre-configured VS Code debug settings in [launch.json](.vscode/launch.json) for a seamless debugging experience.
 
+## Docker
+
+You can also run the bot using Docker:
+
+1. **Build the Docker Image:**
+
+   ```sh
+   docker build -t wolt-restaurant-notifier .
+   ```
+
+2. **Run the Container:**
+
+   ```sh
+   docker run -it wolt-restaurant-notifier
+   ```
+
+3. **Environment Variables:**
+   You can also pass environment variables to override config settings:
+
+   ```sh
+   docker run -v $(pwd)/config:/app/config \
+     -e TELEGRAM__TOKEN="your_token" \
+     -e TELEGRAM__CHAT_ID="your_chat_id" \
+     wolt-restaurant-notifier
+   ```
+
 ---
 
 ## Settings
