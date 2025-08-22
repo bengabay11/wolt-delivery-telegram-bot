@@ -44,7 +44,8 @@ class RestaurantSettings(BaseModel):
 
     slug: str
     message: str
-    check_interval_seconds: int = 900  # 15 minutes
+    check_interval_seconds: int = 60 * 15  # 15 minutes
+    sleep_after_check_seconds: int = 60 * 60 * 2  # 2 hours
 
 
 class TelegramSettings(BaseModel):

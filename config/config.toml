@@ -7,7 +7,7 @@ min_log_level = "INFO"
 log_file_path = "restaurant_notifier_bot.log"
 
 [restaurant]
-slug = "vitrinasda"
+slug = "vitrina"
 message = "ויטרינה בורגרס | לילינבלום פתוחה עכשיו ב-Wolt! 🍔 https://wolt.com/he/isr/tel-aviv/restaurant/vitrina"
 
 [telegram]

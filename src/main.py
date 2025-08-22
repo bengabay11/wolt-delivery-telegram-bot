@@ -15,27 +15,35 @@ async def send_telegram_message(token: str, chat_id: str, message: str) -> None:
     await bot.send_message(chat_id=chat_id, text=message)
 
 
-async def notify_when_open() -> None:
-    notified = False
+async def notify_when_open(
+    restaurant_slug: str,
+    bot_token: str,
+    chat_id: str,
+    notification_message: str,
+    check_interval_seconds: int = 60 * 15,
+    sleep_after_check_seconds: int = 60 * 60 * 2,
+) -> None:
+    time_to_sleep = check_interval_seconds
     while True:
         try:
             logger.info("Checking restaurant delivery availability")
-            is_delivery_open = await is_restaurant_delivery_open(settings.restaurant.slug)
-            if is_delivery_open and not notified:
+            is_delivery_open = await is_restaurant_delivery_open(restaurant_slug)
+            if is_delivery_open:
                 logger.info("Notifying: restaurant is available for delivery")
                 await send_telegram_message(
-                    settings.telegram.bot_token,
-                    settings.telegram.chat_id,
-                    settings.restaurant.message,
+                    bot_token,
+                    chat_id,
+                    notification_message,
                 )
-                notified = True
-            elif not is_delivery_open:
+                time_to_sleep = sleep_after_check_seconds
+            else:
                 logger.info("Restaurant is currently not available for delivery")
-                notified = False
         except Exception:
             logger.exception("Error while checking restaurant delivery status")
-        logger.info("Going to sleep for %d seconds", settings.restaurant.check_interval_seconds)
-        await asyncio.sleep(settings.restaurant.check_interval_seconds)
+
+        logger.info("Going to sleep for %d seconds", time_to_sleep)
+        await asyncio.sleep(time_to_sleep)
+        time_to_sleep = check_interval_seconds
 
 
 async def main() -> None:
@@ -47,7 +55,14 @@ async def main() -> None:
         )
     )
     logger.info("Starting Restaurant notifier for '%s'", settings.restaurant.slug)
-    await notify_when_open()
+    await notify_when_open(
+        settings.restaurant.slug,
+        settings.telegram.bot_token,
+        settings.telegram.chat_id,
+        settings.restaurant.message,
+        settings.restaurant.check_interval_seconds,
+        settings.restaurant.sleep_after_check_seconds,
+    )
 
 
 if __name__ == "__main__":
