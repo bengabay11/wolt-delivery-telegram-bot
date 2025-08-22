@@ -66,7 +66,7 @@ You can also run the bot using Docker:
 
    ```sh
    docker run -v $(pwd)/config:/app/config \
-     -e TELEGRAM__TOKEN="your_token" \
+     -e TELEGRAM__BOT_TOKEN="your_token" \
      -e TELEGRAM__CHAT_ID="your_chat_id" \
      wolt-restaurant-notifier
    ```

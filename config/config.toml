@@ -9,7 +9,3 @@ log_file_path = "restaurant_notifier_bot.log"
 [restaurant]
 slug = "vitrina"
 message = "ויטרינה בורגרס | לילינבלום פתוחה עכשיו ב-Wolt! 🍔 https://wolt.com/he/isr/tel-aviv/restaurant/vitrina"
-
-[telegram]
-bot_token = "8102647956:AAEUBGIxdM7xwmR6t1qhti7EWo8LX8VT7U8"
-chat_id = "1482185333"
