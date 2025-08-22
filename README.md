@@ -1,10 +1,10 @@
 # Wolt Delivery Telegram Bot
 
-Python Telegram bot that monitors the delivery availability status of Wolt restaurant and sends notifications about it
+Python Telegram bot that monitors the delivery availability status of Wolt restaurant and sends notifications about it.
 
 ## Features
 
-- Scrapes the restaurant page for open/closed status
+- Querying Wolt to understand if the restaurant is currently available for deliveries
 - Sends a Telegram message to the bot channel
 - configurable for other restaurants
 
