@@ -46,6 +46,8 @@ class RestaurantSettings(BaseModel):
     message: str
     check_interval_seconds: int = 60 * 15  # 15 minutes
     sleep_after_check_seconds: int = 60 * 60 * 2  # 2 hours
+    operation_start_hour: int = 11  # 11:00
+    operation_end_hour: int = 23  # 23:00
 
 
 class TelegramSettings(BaseModel):
@@ -114,6 +116,3 @@ class AppSettings(BaseSettings):
     ) -> tuple[PydanticBaseSettingsSource, ...]:
         # Customize the order of settings sources.(init > toml > env)
         return (init_settings, TomlConfigSettingsSource(settings_cls), env_settings)
-
-
-settings = AppSettings()  # type: ignore[call-arg]
