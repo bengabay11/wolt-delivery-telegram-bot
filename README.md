@@ -1,6 +1,6 @@
-# Is Restaurant Open Telegram Bot
+# Wolt Delivery Telegram Bot
 
-Telegram bot that notifies when a given restaurant is open.
+Python Telegram bot that monitors the delivery availability status of Wolt restaurant and sends notifications about it
 
 ## Features
 
