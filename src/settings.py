@@ -114,6 +114,3 @@ class AppSettings(BaseSettings):
     ) -> tuple[PydanticBaseSettingsSource, ...]:
         # Customize the order of settings sources.(init > toml > env)
         return (init_settings, TomlConfigSettingsSource(settings_cls), env_settings)
-
-
-settings = AppSettings()  # type: ignore[call-arg]

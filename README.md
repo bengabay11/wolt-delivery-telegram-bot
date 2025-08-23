@@ -41,34 +41,52 @@ Python Telegram bot that monitors the delivery availability status of Wolt resta
 
    Alternatively, you can use the pre-configured VS Code debug settings in [launch.json](.vscode/launch.json) for a seamless debugging experience.
 
-## Docker
+## Docker 🐳
 
-You can also run the bot using Docker:
+You can also run the bot using Docker.
 
-1. **Build the Docker Image:**
+### Using GitHub Container Registry (GHCR)
+
+This project publishes Docker images to [GitHub Container Registry](https://ghcr.io).
+
+```bash
+# Pull the latest image from main
+docker pull ghcr.io/bengabay11/wolt-delivery-telegram-bot:latest
+
+# Or pull a specific commit build (immutable)
+docker pull ghcr.io/bengabay11/wolt-delivery-telegram-bot:<commit-sha>
+
+```
+
+### Manual Build
+
+Build the Docker Image:
 
    ```sh
-   docker build -t wolt-restaurant-notifier .
+   docker build -t wolt-delivery-telegram-bot .
    ```
 
-2. **Run the Container:**
+### Running
+
+**Run the Container:**
 
    ```sh
    docker run -it \
      -v $(pwd)/config:/app/config \
-     wolt-restaurant-notifier
+     ghcr.io/bengabay11/wolt-delivery-telegram-bot
    ```
 
    - `-v $(pwd)/config:/app/config`: Mounts your local config directory, allowing you to modify the configuration without rebuilding the image
 
-3. **Environment Variables:**
+**Environment Variables:**
+
    You can also pass environment variables to override config settings:
 
    ```sh
    docker run -v $(pwd)/config:/app/config \
      -e TELEGRAM__BOT_TOKEN="your_token" \
      -e TELEGRAM__CHAT_ID="your_chat_id" \
-     wolt-restaurant-notifier
+     ghcr.io/bengabay11/wolt-delivery-telegram-bot
    ```
 
 ---

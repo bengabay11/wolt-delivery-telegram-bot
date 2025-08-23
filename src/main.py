@@ -5,7 +5,7 @@ from telegram import Bot
 
 from src.logging_setup import LoggerHandlerType, SetupLoggerParams, setup_logger
 from src.restaurant_scraper import is_restaurant_delivery_open
-from src.settings import settings
+from src.settings import AppSettings
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +47,7 @@ async def notify_when_open(
 
 
 async def main() -> None:
+    settings = AppSettings()  # type: ignore[call-arg]
     setup_logger(
         SetupLoggerParams(
             level=settings.logging.min_log_level,
