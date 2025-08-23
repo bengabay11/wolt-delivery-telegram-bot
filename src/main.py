@@ -23,7 +23,6 @@ async def notify_when_open(
     check_interval_seconds: int = 60 * 15,
     sleep_after_check_seconds: int = 60 * 60 * 2,
 ) -> None:
-    time_to_sleep = check_interval_seconds
     while True:
         try:
             logger.info("Checking restaurant delivery availability")
@@ -38,12 +37,13 @@ async def notify_when_open(
                 time_to_sleep = sleep_after_check_seconds
             else:
                 logger.info("Restaurant is currently not available for delivery")
+                time_to_sleep = check_interval_seconds
         except Exception:
             logger.exception("Error while checking restaurant delivery status")
+            time_to_sleep = check_interval_seconds
 
         logger.info("Going to sleep for %d seconds", time_to_sleep)
         await asyncio.sleep(time_to_sleep)
-        time_to_sleep = check_interval_seconds
 
 
 async def main() -> None:
